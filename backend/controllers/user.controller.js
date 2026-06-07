@@ -1,8 +1,13 @@
 import {User} from "../models/users.model.js"
 import jwt from "jsonwebtoken";
+import path from "path"
 import dotenv from "dotenv";
-dotenv.config();
+import { fileURLToPath } from 'node:url';//note this is important to import files from backend paths
+import { dirname } from 'node:path';//important in order to access other things using dirname
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+dotenv.config();
 
 const registerUser = async (req,res) => {
     try{
@@ -57,8 +62,9 @@ const loginUser = async(req,res) => {
             })
         }
 
+
         const accessToken = jwt.sign(
-            {"username":user.username},
+            {"username":user.username,"User_id":user._id},
             process.env.ACCESS_TOKEN,
             {expiresIn: '5min'}//change later on
         );
@@ -76,6 +82,7 @@ const loginUser = async(req,res) => {
                 username: user.username,
             }
         })
+        return;
     }catch(error){
         res.status(500).json({
             message: "Internal Server Error",
@@ -102,18 +109,22 @@ const logoutuser = async (req,res) => {
     }
 }
 
-const getProfile = async(req,res)=>{
+const getProfile1 = async(req,res)=>{//get request ussed via auth token
     try{
-        return res.status(200).json({message:"Everything ok"});
-    }catch(error){
-        res.status(500).json({message: "Internal server error"});
-        return;
-    }
+            //console.log("sendin back")
+            return res.sendFile(path.join(__dirname, "../Secure_pages/profile1.html"));
+
+            
+        }catch(error){
+            console.log(path.join(__dirname, "../Secure_pages/profile1.html"));
+            res.status(500).json({message: "Internal server error (Under GetProfile1)"});
+            return;
+        }
 }
 
 export{
     registerUser,
     loginUser,
     logoutuser,
-    getProfile
+    getProfile1
 }
