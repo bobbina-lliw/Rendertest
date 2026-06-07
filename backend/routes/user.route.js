@@ -4,7 +4,7 @@ import {middleware} from '../../middleware.js'
 
 const router = Router();
 
-router.route('/register').post(registerUser);
+router.route('/registerYURENDONODDOS').post(registerUser);
 
 router.route('/login').post(loginUser);
 router.route('/logout').post(logoutuser);
