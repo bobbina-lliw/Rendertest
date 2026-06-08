@@ -66,7 +66,11 @@ const loginUser = async(req,res) => {
         const accessToken = jwt.sign(
             {"username":user.username,"User_id":user._id},
             process.env.ACCESS_TOKEN,
-            {expiresIn: '5min'}//change later on
+            {
+                algorithm: 'HS256',
+                expiresIn: '5min'
+            },
+            //change later on
         );
         const refreshToken = jwt.sign(//refresh token prevents consistent signing in
             {"username":user.username},
@@ -92,7 +96,7 @@ const loginUser = async(req,res) => {
     }
 }
 
-const logoutuser = async (req,res) => {
+const logoutuser = async (req,res) => {//in future logout removes access token
     try{
         const {username} = req.body;
 

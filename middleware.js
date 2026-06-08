@@ -18,7 +18,9 @@ function middleware(req,res,next){
             return res.status(401).json({message : "UnAuthorised Access(no token format)"});
         }
 
-        const accurate = jwt.verify(token,process.env.ACCESS_TOKEN);
+        const accurate = jwt.verify(token,process.env.ACCESS_TOKEN,{
+            algorithms: ["HS256"]
+        });
         if(accurate){
             req.user = accurate;
             next();
