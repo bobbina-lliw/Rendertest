@@ -5,10 +5,10 @@ import postRouter from './routes/post.route.js';
 import rateLimit from "express-rate-limit";
 
 const app = express();//creates an express app
-
+/*
 const globalLimitor = rateLimit({
     windowMs:1*60*1000,
-    max:100,
+    max:1500,
     message:"DDOS NOT AVAILABLE TRY SMTH ELSE",
     standardHeaders:true,
     legacyHeaders: false,
@@ -17,7 +17,7 @@ const globalLimitor = rateLimit({
 })
 
 app.use(globalLimitor);
-
+*/
 app.use(cors());
 app.use(express.json());
 
