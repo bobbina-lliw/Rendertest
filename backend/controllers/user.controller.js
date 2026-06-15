@@ -111,7 +111,7 @@ const loginUser = async (req, res) => {
       process.env.ACCESS_TOKEN,
       {
         algorithm: "HS256",
-        expiresIn: "5sec",
+        expiresIn: "30sec",
       },
       //change later on
     );
