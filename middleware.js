@@ -27,7 +27,7 @@ function refreshtokenvalidity(req, res, next) {
 
     return res.status(401).json({ message: "Wrong Rrefresh Token" });
   } catch (error) {
-    return res.status(401).json({ message: `Internal Sever Error ${error}` });
+    return res.status(401).json({ message: `Internal Sever Error` });
   }
 }
 
@@ -37,14 +37,14 @@ function middleware(req, res, next) {
     if (!header) {
       return res
         .status(401)
-        .json({ message: "UnAuthorised Access (middleware)" });
+        .json({ message: "UnAuthorised Access" });
     }
 
     const token = header.split(" ")[1];
     if (!token) {
       return res
         .status(401)
-        .json({ message: "UnAuthorised Access(no token format)" });
+        .json({ message: "UnAuthorised Access" });
     }
 
     const accurate = jwt.verify(token, process.env.ACCESS_TOKEN, {
@@ -57,7 +57,7 @@ function middleware(req, res, next) {
     }
     return res
       .status(401)
-      .json({ message: "UnAuthorisedAccess invalid token" });
+      .json({ message: "UnAuthorisedAccess" });
   } catch (error) {
     //console.log(`${error}`);
     if (error instanceof jwt.TokenExpiredError) {
@@ -65,10 +65,10 @@ function middleware(req, res, next) {
         message: "Token expired",
       });
     }
-    console.log(`${error}`);
+    //console.log(`${error}`);
     res
       .status(500)
-      .json({ message: "Internal server error (Under middleware" });
+      .json({ message: "Internal server error" });
     return;
   }
 }

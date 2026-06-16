@@ -93,7 +93,7 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       return res.status(401).json({
-        message: "User not found",
+        message: "Invalid Credentials",
       });
     }
 
@@ -168,7 +168,7 @@ const getProfile1 = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Internal server error (Under GetProfile1)" });
+      .json({ message: "Internal server error" });
     return;
   }
 };
